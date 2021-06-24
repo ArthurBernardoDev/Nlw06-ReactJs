@@ -15,7 +15,16 @@
     > img {
         max-height: 45px;
         }
-      }
+         > div {
+             display: flex;
+           
+             button {
+                 height: 40px;
+                 margin-left: 16px;
+             }
+             
+            }
+        }
     }
 
     main {
