@@ -22,7 +22,7 @@ export function Room() {
     const params = useParams<RoomParams>();
     const [newQuestion, setNewQuestion] = useState('')
     const roomId = params.id;
-    const { title, questions} = useRoom(roomId)
+    const { title, question} = useRoom(roomId)
 
     
 
@@ -73,7 +73,7 @@ export function Room() {
             <main>
                 <div className="room-title">
                     <h1>Sala {title}</h1>
-                    {questions.length > 0 && <span>{questions.length} perguntas </span>}
+                    {question.length > 0 && <span>{question.length} perguntas </span>}
                 </div>
 
                 <form onSubmit={handleSendQuestion}>
@@ -97,12 +97,15 @@ export function Room() {
                 </form>
 
                 <div className="question-list">
-                {questions.map(question => {
+                {question.map(question => {
                     return(
                         <Question
                          key={question.id}
                         content={question.content}
-                        author={question.author}>
+                        author={question.author}
+                        isAnswered={question.isAnswered}
+                        isHighlighted={question.isHighlighted}
+                        >
                         
                         <button
                         className={`like-button ${question.likeId ? 'liked' : ''}`}

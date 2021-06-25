@@ -30,7 +30,7 @@ type FirebaseQuestions = Record<string, {
 
 export function useRoom(roomId: string) {
     const { user } =useAuth();
-    const [questions, setQuestions] = useState<QuestionType[]>([]);
+    const [question, setQuestion] = useState<QuestionType[]>([]);
     const [title, setTitle] = useState('');
 
     useEffect(() => {
@@ -38,9 +38,9 @@ export function useRoom(roomId: string) {
 
          roomRef.on('value', room => {
             const databaseRoom = room.val();
-            const firebaseQuestions: FirebaseQuestions = databaseRoom.questions ?? {};
+            const firebaseQuestion: FirebaseQuestions = databaseRoom.questions ?? {};
             
-            const parsedQuestion = Object.entries(firebaseQuestions).map(([key, value]) => {
+            const parsedQuestion = Object.entries(firebaseQuestion).map(([key, value]) => {
                 return {
                     id: key,
                     content: value.content,
@@ -52,7 +52,7 @@ export function useRoom(roomId: string) {
                 }
             })
             setTitle(databaseRoom.title);
-            setQuestions(parsedQuestion);
+            setQuestion(parsedQuestion);
         })
 
         return () => {
@@ -60,5 +60,5 @@ export function useRoom(roomId: string) {
         }
     }, [roomId, user?.id]);
 
-    return { questions, title}
+    return { question, title}
 }
